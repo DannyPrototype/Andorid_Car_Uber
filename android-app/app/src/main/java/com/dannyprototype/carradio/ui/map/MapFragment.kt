@@ -1,6 +1,7 @@
 package com.dannyprototype.carradio.ui.map
 
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +16,14 @@ import com.dannyprototype.carradio.R
 import com.dannyprototype.carradio.databinding.FragmentMapBinding
 import com.dannyprototype.carradio.ui.MainViewModel
 import com.dannyprototype.carradio.ui.state.MapUiState
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.CustomZoomButtonsController
+import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.Polyline
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
@@ -30,7 +33,6 @@ class MapFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
 
-    private var googleMap: GoogleMap? = null
     private var carMarker: Marker? = null
     private var routePolyline: Polyline? = null
 
@@ -45,13 +47,7 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize Google Map
-        val mapFragment = childFragmentManager
-            .findFragmentById(R.id.googleMap) as? SupportMapFragment
-        mapFragment?.getMapAsync { map ->
-            googleMap = map
-            setupMap(map)
-        }
+        setupMap()
 
         // Fuel alert buttons
         binding.btnFuelAlertRegister.setOnClickListener {
@@ -88,62 +84,82 @@ class MapFragment : Fragment() {
         }
     }
 
-    private fun setupMap(map: GoogleMap) {
-        // Dark map style
-        try {
-            map.setMapStyle(
-                MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style_dark)
-            )
-        } catch (_: Exception) {
-            // Fallback: no custom style
-        }
+    private fun setupMap() {
+        // Configure Osmdroid
+        Configuration.getInstance().userAgentValue = requireContext().packageName
 
-        map.uiSettings.apply {
-            isZoomControlsEnabled = false
-            isCompassEnabled = true
-            isMyLocationButtonEnabled = false
+        val mapView = binding.mapView
+        mapView.setTileSource(TileSourceFactory.MAPNIK)
+        mapView.setMultiTouchControls(true)
+        mapView.zoomController.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
+        mapView.controller.setZoom(16.0)
+
+        // Dark overlay to match car-radio theme
+        mapView.overlayManager.tilesOverlay.setColorFilter(
+            android.graphics.ColorMatrixColorFilter(
+                floatArrayOf(
+                    -1f, 0f, 0f, 0f, 255f,   // Red
+                     0f,-1f, 0f, 0f, 255f,   // Green
+                     0f, 0f,-1f, 0f, 255f,   // Blue
+                     0f, 0f, 0f, 1f, 0f      // Alpha
+                )
+            )
+        )
+
+        // Initialize route polyline
+        routePolyline = Polyline().apply {
+            outlinePaint.color = Color.parseColor("#00B4D8")
+            outlinePaint.strokeWidth = 8f
+            outlinePaint.strokeCap = Paint.Cap.ROUND
+            outlinePaint.isAntiAlias = true
         }
+        mapView.overlays.add(routePolyline)
     }
 
     private fun updateMap(state: MapUiState) {
-        val map = googleMap ?: return
         val pos = state.currentPosition ?: return
+        val geoPoint = GeoPoint(pos.latitude, pos.longitude)
+        val mapView = binding.mapView
 
         // Update or create car marker
         if (carMarker == null) {
-            carMarker = map.addMarker(
-                MarkerOptions()
-                    .position(pos)
-                    .title("Mi posición")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
-                    .flat(true)
-            )
+            carMarker = Marker(mapView).apply {
+                position = geoPoint
+                setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+                title = "Mi posición"
+                icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_car_marker)
+            }
+            mapView.overlays.add(carMarker)
         } else {
-            carMarker?.position = pos
-            carMarker?.rotation = state.bearing
+            carMarker?.position = geoPoint
+            carMarker?.rotation = -state.bearing
         }
 
         // Update route polyline
         if (state.routePoints.size >= 2) {
-            if (routePolyline == null) {
-                routePolyline = map.addPolyline(
-                    PolylineOptions()
-                        .addAll(state.routePoints)
-                        .color(Color.parseColor("#00B4D8"))
-                        .width(8f)
-                )
-            } else {
-                routePolyline?.points = state.routePoints
+            val osmdroidPoints = state.routePoints.map {
+                GeoPoint(it.latitude, it.longitude)
             }
+            routePolyline?.setPoints(osmdroidPoints)
         }
 
-        // Move camera
-        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(pos, 16f)
-        map.animateCamera(cameraUpdate)
+        // Animate camera to follow car
+        mapView.controller.animateTo(geoPoint)
+        mapView.invalidate()
     }
 
     interface FuelAlertListener {
         fun onFuelAlertRegister()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.mapView.onPause()
     }
 
     override fun onDestroyView() {

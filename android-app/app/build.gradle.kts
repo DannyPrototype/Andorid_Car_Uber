@@ -17,8 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        // Google Maps API key - replace with your own key
-        manifestPlaceholders["MAPS_API_KEY"] = project.findProperty("MAPS_API_KEY") ?: "YOUR_API_KEY_HERE"
+        // No API key needed - using OpenStreetMap (free)
     }
 
     buildTypes {
@@ -68,8 +67,10 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
 
-    // Google Maps SDK
-    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    // OpenStreetMap (Osmdroid) - 100% free, no API key needed
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
+
+    // Google Play Services Location (for FusedLocationProvider - free)
     implementation("com.google.android.gms:play-services-location:21.1.0")
 
     // Coroutines

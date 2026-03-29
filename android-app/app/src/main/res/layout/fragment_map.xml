@@ -5,19 +5,12 @@
     android:layout_height="match_parent"
     android:padding="4dp">
 
-    <!-- Google Maps container -->
-    <FrameLayout
-        android:id="@+id/mapContainer"
+    <!-- OpenStreetMap (Osmdroid) - 100% free, no API key -->
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/map_bg">
-
-        <fragment
-            android:id="@+id/googleMap"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+        android:background="@color/map_bg" />
 
     <!-- Speed overlay (bottom-right) -->
     <LinearLayout

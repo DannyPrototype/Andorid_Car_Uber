@@ -13,8 +13,8 @@ import com.dannyprototype.carradio.location.SpeedCalculator
 import com.dannyprototype.carradio.model.LocationPoint
 import com.dannyprototype.carradio.model.TripMode
 import com.dannyprototype.carradio.ui.state.DashboardUiState
+import com.dannyprototype.carradio.ui.state.GeoPoint
 import com.dannyprototype.carradio.ui.state.MapUiState
-import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -52,7 +52,7 @@ class MainViewModel @Inject constructor(
     private var tripDistanceKm = 0.0
     private var dayKm = 0.0
     private var previousPoint: LocationPoint? = null
-    private val routePoints = mutableListOf<LatLng>()
+    private val routePoints = mutableListOf<GeoPoint>()
 
     // Time
     private var tripDurationSec = 0
@@ -131,12 +131,12 @@ class MainViewModel @Inject constructor(
         previousPoint = point
 
         // Update route
-        val latLng = LatLng(point.latitude, point.longitude)
-        routePoints.add(latLng)
+        val geoPoint = GeoPoint(point.latitude, point.longitude)
+        routePoints.add(geoPoint)
 
         // Update map state
         _mapState.value = MapUiState(
-            currentPosition = latLng,
+            currentPosition = geoPoint,
             routePoints = routePoints.toList(),
             speedKmh = currentSpeedKmh.toInt(),
             isMoving = !SpeedCalculator.isStopped(currentSpeedKmh),
@@ -391,7 +391,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun calculateBearing(from: LatLng, to: LatLng): Float {
+    private fun calculateBearing(from: GeoPoint, to: GeoPoint): Float {
         val dLon = Math.toRadians(to.longitude - from.longitude)
         val lat1 = Math.toRadians(from.latitude)
         val lat2 = Math.toRadians(to.latitude)
