@@ -47,7 +47,7 @@ body {
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: 600;
-    transition: background 0.3s, color 0.3s;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .mode-bar.personal {
@@ -72,6 +72,12 @@ body {
     font-size: 1.4rem;
 }
 
+.mode-stats {
+    margin-left: auto;
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
 /* ===== Data Grid ===== */
 .data-grid {
     display: grid;
@@ -90,7 +96,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background 0.3s;
 }
 
 .data-card:hover {
@@ -102,6 +108,7 @@ body {
     font-weight: 700;
     color: #ffffff;
     line-height: 1.1;
+    transition: color 0.3s;
 }
 
 .data-unit {
@@ -119,7 +126,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Speed card destaca */
+/* Speed card */
 .speed-card {
     background: linear-gradient(135deg, #1a1a2e, #16213e);
     border-color: #0f3460;
@@ -128,12 +135,67 @@ body {
 .speed-card .data-value {
     font-size: 2.4rem;
     color: #00b4d8;
+    transition: color 0.3s;
 }
 
-/* Fuel card ocupa 2 columnas */
+.speed-card.stopped .data-value {
+    color: #ef5350;
+}
+
+.speed-card.slow .data-value {
+    color: #ffb74d;
+}
+
+.speed-card.fast .data-value {
+    color: #4caf50;
+}
+
+/* Speed indicator bar */
+.speed-indicator {
+    width: 100%;
+    height: 4px;
+    background: #0d0d1a;
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+
+.speed-indicator-fill {
+    height: 100%;
+    width: 0%;
+    background: #00b4d8;
+    border-radius: 2px;
+    transition: width 0.8s ease, background 0.3s;
+}
+
+/* Stopped card highlight */
+.stopped-highlight {
+    border-color: #ef5350 !important;
+    background: linear-gradient(135deg, #1a1a2e, #2a1a1a) !important;
+}
+
+.stopped-highlight .data-value {
+    color: #ef5350;
+}
+
+/* Fuel card - 2 columns */
 .fuel-card {
     grid-column: span 2;
     align-items: stretch;
+}
+
+.fuel-card.fuel-warning {
+    border-color: #f57c00;
+}
+
+.fuel-card.fuel-danger {
+    border-color: #d32f2f;
+    animation: fuelPulse 1.5s infinite;
+}
+
+@keyframes fuelPulse {
+    0%, 100% { border-color: #d32f2f; }
+    50% { border-color: #ff5252; box-shadow: 0 0 12px rgba(211, 47, 47, 0.3); }
 }
 
 .fuel-bar-container {
@@ -176,21 +238,32 @@ body {
 .fuel-details {
     display: flex;
     justify-content: space-between;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: #888;
 }
 
-/* Finance card ocupa 1 columna */
+/* Finance card */
 .finance-card {
     justify-content: flex-start;
-    gap: 6px;
+    gap: 5px;
 }
 
 .finance-row {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
+}
+
+.finance-row-total {
+    font-size: 0.9rem;
+}
+
+.finance-divider {
+    width: 100%;
+    height: 1px;
+    background: #2a2a4a;
+    margin: 2px 0;
 }
 
 .finance-label {
@@ -199,7 +272,7 @@ body {
 
 .finance-value {
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .finance-value.green {
@@ -208,6 +281,41 @@ body {
 
 .finance-value.red {
     color: #ef5350;
+}
+
+/* ===== Mode Summary Bar ===== */
+.mode-summary {
+    display: flex;
+    gap: 16px;
+    padding: 6px 12px;
+    background: #111122;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    color: #888;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.summary-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.personal-dot {
+    background: #4caf50;
+}
+
+.uber-pass-dot {
+    background: #ce93d8;
+}
+
+.uber-empty-dot {
+    background: #ffb74d;
 }
 
 /* ===== Panel Derecho: Mapa ===== */
@@ -235,7 +343,6 @@ body {
     background-size: 40px 40px;
 }
 
-/* Calles principales */
 .map-road {
     position: absolute;
     background: #1a2a3a;
@@ -266,48 +373,24 @@ body {
     transform: rotate(35deg) translateY(80px);
 }
 
-/* Calles secundarias */
 .map-street {
     position: absolute;
     background: #142230;
 }
 
-.street-1 {
-    top: 20%;
-    left: 0;
-    right: 0;
-    height: 6px;
-}
+.street-1 { top: 20%; left: 0; right: 0; height: 6px; }
+.street-2 { top: 70%; left: 0; right: 0; height: 6px; }
+.street-3 { left: 25%; top: 0; bottom: 0; width: 6px; }
+.street-4 { left: 75%; top: 0; bottom: 0; width: 6px; }
 
-.street-2 {
-    top: 70%;
-    left: 0;
-    right: 0;
-    height: 6px;
-}
-
-.street-3 {
-    left: 25%;
-    top: 0;
-    bottom: 0;
-    width: 6px;
-}
-
-.street-4 {
-    left: 75%;
-    top: 0;
-    bottom: 0;
-    width: 6px;
-}
-
-/* Marcador del carro */
+/* Car marker */
 .car-marker {
     position: absolute;
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
-    transition: top 1s ease, left 1s ease;
+    transition: top 0.9s ease, left 0.9s ease;
 }
 
 .car-dot {
@@ -317,6 +400,12 @@ body {
     border-radius: 50%;
     border: 2px solid #fff;
     box-shadow: 0 0 12px rgba(0, 180, 216, 0.6);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.car-dot.stopped {
+    background: #ef5350;
+    box-shadow: 0 0 12px rgba(239, 83, 80, 0.6);
 }
 
 .car-pulse {
@@ -329,6 +418,10 @@ body {
     background: rgba(0, 180, 216, 0.2);
     transform: translate(-50%, -50%);
     animation: pulse 2s infinite;
+}
+
+.car-pulse.stopped {
+    background: rgba(239, 83, 80, 0.2);
 }
 
 @keyframes pulse {
@@ -368,6 +461,73 @@ body {
     font-size: 0.7rem;
     font-weight: 700;
     color: #ef5350;
+}
+
+.map-speed-overlay {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(10, 10, 10, 0.85);
+    border: 1px solid #2a4a6a;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    color: #00b4d8;
+    font-weight: 700;
+}
+
+/* Fuel alert overlay */
+.fuel-alert {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(183, 28, 28, 0.95);
+    border: 1px solid #ff5252;
+    border-radius: 10px;
+    padding: 10px 16px;
+    z-index: 20;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffcdd2;
+    white-space: nowrap;
+    animation: slideUp 0.3s ease;
+}
+
+.fuel-alert.visible {
+    display: flex;
+}
+
+@keyframes slideUp {
+    from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+.fuel-alert-icon {
+    font-size: 1.2rem;
+}
+
+.fuel-alert-btn {
+    background: #fff;
+    color: #b71c1c;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.fuel-alert-dismiss {
+    background: none;
+    border: none;
+    color: #ffcdd2;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 4px;
 }
 
 /* ===== Barra Inferior ===== */
@@ -417,7 +577,6 @@ body {
     color: #a5d6a7;
     box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
 }
-
 .btn-start:hover:not(:disabled) {
     box-shadow: 0 4px 16px rgba(46, 125, 50, 0.5);
 }
@@ -427,7 +586,6 @@ body {
     color: #ef9a9a;
     box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
 }
-
 .btn-stop:hover:not(:disabled) {
     box-shadow: 0 4px 16px rgba(211, 47, 47, 0.5);
 }
@@ -437,7 +595,6 @@ body {
     color: #ffe0b2;
     box-shadow: 0 2px 8px rgba(245, 124, 0, 0.3);
 }
-
 .btn-fuel:hover:not(:disabled) {
     box-shadow: 0 4px 16px rgba(245, 124, 0, 0.5);
 }
@@ -447,7 +604,6 @@ body {
     color: #90caf9;
     box-shadow: 0 2px 8px rgba(21, 101, 192, 0.3);
 }
-
 .btn-export:hover:not(:disabled) {
     box-shadow: 0 4px 16px rgba(21, 101, 192, 0.5);
 }
@@ -457,7 +613,6 @@ body {
     color: #ce93d8;
     box-shadow: 0 2px 8px rgba(106, 27, 154, 0.3);
 }
-
 .btn-mode:hover:not(:disabled) {
     box-shadow: 0 4px 16px rgba(106, 27, 154, 0.5);
 }
@@ -525,7 +680,6 @@ body {
     background: #2a2a3a;
     color: #aaa;
 }
-
 .btn-modal-cancel:hover {
     background: #3a3a4a;
 }
@@ -534,7 +688,6 @@ body {
     background: linear-gradient(135deg, #00b4d8, #0077b6);
     color: #fff;
 }
-
 .btn-modal-ok:hover {
     box-shadow: 0 4px 16px rgba(0, 180, 216, 0.4);
 }
@@ -567,11 +720,9 @@ body {
 .panel-left::-webkit-scrollbar {
     width: 4px;
 }
-
 .panel-left::-webkit-scrollbar-track {
     background: transparent;
 }
-
 .panel-left::-webkit-scrollbar-thumb {
     background: #2a2a4a;
     border-radius: 2px;
