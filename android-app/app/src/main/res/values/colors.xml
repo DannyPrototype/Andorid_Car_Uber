@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base dark theme -->
+    <color name="bg_primary">#FF0A0A0A</color>
+    <color name="bg_panel">#FF0F0F1A</color>
+    <color name="bg_card">#FF1A1A2E</color>
+    <color name="bg_card_highlight">#FF16213E</color>
+    <color name="bg_input">#FF0D0D1A</color>
+    <color name="border_card">#FF2A2A4A</color>
+    <color name="border_highlight">#FF4A4A7A</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#FFE0E0E0</color>
+    <color name="text_muted">#FF6A6A8A</color>
+    <color name="text_dim">#FF888888</color>
+
+    <!-- Mode colors -->
+    <color name="mode_personal">#FF4CAF50</color>
+    <color name="mode_personal_bg">#FF1A2A1A</color>
+    <color name="mode_personal_border">#FF2E7D32</color>
+
+    <color name="mode_uber_passenger">#FFCE93D8</color>
+    <color name="mode_uber_passenger_bg">#FF2A1A2A</color>
+    <color name="mode_uber_passenger_border">#FF7B1FA2</color>
+
+    <color name="mode_uber_empty">#FFFFB74D</color>
+    <color name="mode_uber_empty_bg">#FF2A2A1A</color>
+    <color name="mode_uber_empty_border">#FFF57C00</color>
+
+    <!-- Speed states -->
+    <color name="speed_normal">#FF00B4D8</color>
+    <color name="speed_stopped">#FFEF5350</color>
+    <color name="speed_slow">#FFFFB74D</color>
+    <color name="speed_fast">#FF4CAF50</color>
+
+    <!-- Fuel bar -->
+    <color name="fuel_normal_start">#FF00B4D8</color>
+    <color name="fuel_normal_end">#FF0077B6</color>
+    <color name="fuel_warning_start">#FFF57C00</color>
+    <color name="fuel_warning_end">#FFE65100</color>
+    <color name="fuel_danger_start">#FFD32F2F</color>
+    <color name="fuel_danger_end">#FFB71C1C</color>
+    <color name="fuel_bar_bg">#FF0D0D1A</color>
+
+    <!-- Finance -->
+    <color name="finance_green">#FF4CAF50</color>
+    <color name="finance_red">#FFEF5350</color>
+
+    <!-- Buttons -->
+    <color name="btn_start_dark">#FF1B5E20</color>
+    <color name="btn_start_light">#FF2E7D32</color>
+    <color name="btn_start_text">#FFA5D6A7</color>
+
+    <color name="btn_stop_dark">#FFB71C1C</color>
+    <color name="btn_stop_light">#FFD32F2F</color>
+    <color name="btn_stop_text">#FFEF9A9A</color>
+
+    <color name="btn_fuel_dark">#FFE65100</color>
+    <color name="btn_fuel_light">#FFF57C00</color>
+    <color name="btn_fuel_text">#FFFFE0B2</color>
+
+    <color name="btn_export_dark">#FF0D47A1</color>
+    <color name="btn_export_light">#FF1565C0</color>
+    <color name="btn_export_text">#FF90CAF9</color>
+
+    <color name="btn_mode_dark">#FF4A148C</color>
+    <color name="btn_mode_light">#FF6A1B9A</color>
+    <color name="btn_mode_text">#FFCE93D8</color>
+
+    <!-- Map -->
+    <color name="map_bg">#FF0D1117</color>
+    <color name="map_border">#FF1A2A3A</color>
+    <color name="map_overlay_bg">#DD0A0A0A</color>
+</resources>

@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/panel_padding">
+
+        <!-- Mode bar -->
+        <LinearLayout
+            android:id="@+id/modeBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:background="@drawable/bg_mode_personal">
+
+            <TextView
+                android:id="@+id/modeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                tools:text="\uD83D\uDE98" />
+
+            <TextView
+                android:id="@+id/modeLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/mode_personal"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Personal" />
+
+            <TextView
+                android:id="@+id/modeStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_dim"
+                android:textSize="11sp"
+                tools:text="5.3 km | 2 viajes" />
+        </LinearLayout>
+
+        <!-- Data grid: 3 columns -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:columnCount="3"
+            android:rowCount="2"
+            android:useDefaultMargins="true">
+
+            <!-- Speed card -->
+            <LinearLayout
+                android:id="@+id/speedCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/card_padding"
+                android:background="@drawable/bg_speed_card">
+
+                <TextView
+                    android:id="@+id/tvSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/speed_text_size"
+                    android:textStyle="bold"
+                    android:textColor="@color/speed_normal"
+                    tools:text="45" />
+
+                <TextView
+                    style="@style/DataCardText.Unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_kmh" />
+
+                <TextView
+                    style="@style/DataCardText.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_speed" />
+
+                <ProgressBar
+                    android:id="@+id/speedIndicator"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="6dp"
+                    android:max="100"
+                    android:progressDrawable="@drawable/bg_speed_indicator" />
+            </LinearLayout>
+
+            <!-- Trip distance card -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/card_padding"
+                android:background="@drawable/bg_data_card">
+
+                <TextView
+                    android:id="@+id/tvTripDistance"
+                    style="@style/DataCardText.Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="3.45" />
+
+                <TextView
+                    style="@style/DataCardText.Unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_km" />
+
+                <TextView
+                    style="@style/DataCardText.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_trip_distance" />
+            </LinearLayout>
+
+            <!-- Day km card -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/card_padding"
+                android:background="@drawable/bg_data_card">
+
+                <TextView
+                    android:id="@+id/tvDayKm"
+                    style="@style/DataCardText.Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="47.83" />
+
+                <TextView
+                    style="@style/DataCardText.Unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_km" />
+
+                <TextView
+                    style="@style/DataCardText.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_day_km" />
+            </LinearLayout>
+
+            <!-- Trip time card -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/card_padding"
+                android:background="@drawable/bg_data_card">
+
+                <TextView
+                    android:id="@+id/tvTripTime"
+                    style="@style/DataCardText.Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="18:45" />
+
+                <TextView
+                    style="@style/DataCardText.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_trip_time" />
+            </LinearLayout>
+
+            <!-- Stopped time card -->
+            <LinearLayout
+                android:id="@+id/stoppedCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/card_padding"
+                android:background="@drawable/bg_data_card">
+
+                <TextView
+                    android:id="@+id/tvStoppedTime"
+                    style="@style/DataCardText.Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="04:12" />
+
+                <TextView
+                    android:id="@+id/tvStoppedPercent"
+                    style="@style/DataCardText.Unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="22%" />
+
+                <TextView
+                    style="@style/DataCardText.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_stopped_time" />
+            </LinearLayout>
+        </GridLayout>
+
+        <!-- Fuel card (full width) -->
+        <LinearLayout
+            android:id="@+id/fuelCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:padding="@dimen/card_padding"
+            android:background="@drawable/bg_data_card">
+
+            <!-- Fuel header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/DataCardText.Label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_fuel"
+                    android:gravity="start" />
+
+                <TextView
+                    android:id="@+id/tvFuelCostPerKm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textColor="@color/speed_normal"
+                    android:textStyle="bold"
+                    tools:text="$0.085/km" />
+            </LinearLayout>
+
+            <!-- Fuel progress bar -->
+            <ProgressBar
+                android:id="@+id/fuelProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/fuel_bar_height"
+                android:layout_marginTop="6dp"
+                android:max="100"
+                android:progress="35"
+                android:progressDrawable="@drawable/bg_fuel_bar" />
+
+            <TextView
+                android:id="@+id/tvFuelBarText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:textColor="@color/text_dim"
+                android:layout_marginTop="2dp"
+                tools:text="34.7 / 100 km" />
+
+            <!-- Fuel details row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvFuelUsed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_dim"
+                    tools:text="Usado: 34.7 km" />
+
+                <TextView
+                    android:id="@+id/tvFuelBlockCost"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_dim"
+                    tools:text="Bloque: $8.50" />
+
+                <TextView
+                    android:id="@+id/tvFuelRemaining"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_dim"
+                    tools:text="Queda: 65.3 km" />
+            </LinearLayout>
+
+            <!-- Remaining fuel in dollars -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvFuelRemainingDollars"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textSize="11sp"
+                    android:textColor="@color/finance_green"
+                    android:textStyle="bold"
+                    tools:text="Restante: $5.55" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Finance card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:padding="@dimen/card_padding"
+            android:background="@drawable/bg_data_card">
+
+            <!-- Uber income -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_uber_income"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_muted" />
+                <TextView
+                    android:id="@+id/tvUberIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/finance_green"
+                    tools:text="$125.50" />
+            </LinearLayout>
+
+            <!-- Trip cost -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_trip_cost"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_muted" />
+                <TextView
+                    android:id="@+id/tvTripCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/finance_red"
+                    tools:text="$1.05" />
+            </LinearLayout>
+
+            <!-- Total day cost -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_total_cost"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_muted" />
+                <TextView
+                    android:id="@+id/tvTotalCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/finance_red"
+                    tools:text="$4.07" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="4dp"
+                android:background="@color/border_card" />
+
+            <!-- Profit -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/label_profit"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_muted" />
+                <TextView
+                    android:id="@+id/tvProfit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/finance_green"
+                    tools:text="+$121.43" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Mode summary bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="6dp"
+            android:background="@color/bg_panel"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Personal -->
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@color/mode_personal" />
+            <TextView
+                android:id="@+id/tvSumPersonal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:textSize="10sp"
+                android:textColor="@color/text_dim"
+                tools:text="Personal: 5.5 km" />
+
+            <!-- Uber con pasajero -->
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@color/mode_uber_passenger" />
+            <TextView
+                android:id="@+id/tvSumUberPass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:textSize="10sp"
+                android:textColor="@color/text_dim"
+                tools:text="Con Pasaj: 37.1 km · 3 viajes" />
+
+            <!-- Uber sin pasajero -->
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@color/mode_uber_empty" />
+            <TextView
+                android:id="@+id/tvSumUberEmpty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:textSize="10sp"
+                android:textColor="@color/text_dim"
+                tools:text="Sin Pasaj: 5.2 km" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

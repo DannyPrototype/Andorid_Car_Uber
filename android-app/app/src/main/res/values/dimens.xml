@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_padding">10dp</dimen>
+    <dimen name="card_radius">10dp</dimen>
+    <dimen name="card_margin">4dp</dimen>
+    <dimen name="panel_padding">12dp</dimen>
+    <dimen name="speed_text_size">36sp</dimen>
+    <dimen name="value_text_size">24sp</dimen>
+    <dimen name="unit_text_size">11sp</dimen>
+    <dimen name="label_text_size">10sp</dimen>
+    <dimen name="fuel_bar_height">18dp</dimen>
+    <dimen name="btn_bar_height">70dp</dimen>
+    <dimen name="btn_icon_size">22sp</dimen>
+    <dimen name="mode_bar_padding_h">16dp</dimen>
+    <dimen name="mode_bar_padding_v">8dp</dimen>
+</resources>

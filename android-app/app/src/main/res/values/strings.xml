@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Car Radio Tracker</string>
+
+    <!-- Modos -->
+    <string name="mode_personal">Personal</string>
+    <string name="mode_uber_passenger">Uber con Pasajero</string>
+    <string name="mode_uber_empty">Uber sin Pasajero</string>
+
+    <!-- Labels de datos -->
+    <string name="label_speed">Velocidad</string>
+    <string name="label_trip_distance">Distancia Viaje</string>
+    <string name="label_day_km">Km del Día</string>
+    <string name="label_trip_time">Tiempo Viaje</string>
+    <string name="label_stopped_time">T. Detenido</string>
+    <string name="label_fuel">Combustible</string>
+    <string name="label_fuel_remaining">Restante</string>
+    <string name="label_fuel_cost_per_km">Costo/km</string>
+    <string name="label_uber_income">Ingreso Uber</string>
+    <string name="label_trip_cost">Costo Viaje</string>
+    <string name="label_total_cost">Costo Total Día</string>
+    <string name="label_profit">Ganancia Neta</string>
+
+    <!-- Unidades -->
+    <string name="unit_kmh">km/h</string>
+    <string name="unit_km">km</string>
+
+    <!-- Botones -->
+    <string name="btn_start_trip">Iniciar Viaje</string>
+    <string name="btn_end_trip">Finalizar Viaje</string>
+    <string name="btn_fuel">Combustible</string>
+    <string name="btn_export">Exportar CSV</string>
+    <string name="btn_change_mode">Cambiar Modo</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_accept">Aceptar</string>
+    <string name="btn_register">Registrar</string>
+    <string name="btn_skip">Omitir</string>
+
+    <!-- Dialog Combustible -->
+    <string name="fuel_dialog_title">Registrar Combustible</string>
+    <string name="fuel_dialog_message">Ingresa el costo y los kilómetros de este tanqueo:</string>
+    <string name="fuel_hint_cost">Costo ($)</string>
+    <string name="fuel_hint_km">Kilómetros</string>
+
+    <!-- Dialog Ingreso -->
+    <string name="income_dialog_title">Ingreso del Pasajero</string>
+    <string name="income_dialog_message">Viaje: %1$.2f km | Costo estimado: $%2$.2f</string>
+    <string name="income_hint">Monto cobrado ($)</string>
+
+    <!-- Toast / mensajes -->
+    <string name="toast_trip_started">Viaje iniciado - %1$s</string>
+    <string name="toast_trip_ended">Viaje finalizado - %1$.2f km</string>
+    <string name="toast_trip_recorded">Viaje registrado: $%1$.2f | Ganancia: %2$s$%3$.2f</string>
+    <string name="toast_fuel_registered">Combustible: $%1$.2f / %2$.0f km (%3$.3f $/km)</string>
+    <string name="toast_mode_changed">Modo: %1$s</string>
+    <string name="toast_csv_exported">CSV exportado: %1$d viajes</string>
+    <string name="toast_no_trips">No hay viajes para exportar</string>
+    <string name="toast_end_trip_first">Finaliza el viaje antes de cambiar modo</string>
+
+    <!-- Fuel alert -->
+    <string name="fuel_alert_message">Combustible agotado</string>
+
+    <!-- Notificación del servicio -->
+    <string name="notification_channel_name">Rastreo de ubicación</string>
+    <string name="notification_tracking_title">Car Radio Tracker</string>
+    <string name="notification_tracking_text">Rastreando viaje: %1$.2f km | %2$s</string>
+
+    <!-- Permisos -->
+    <string name="permission_location_rationale">Se necesita acceso a la ubicación para rastrear tu viaje y calcular distancia/velocidad.</string>
+
+    <!-- Formatos -->
+    <string name="format_km">%1$.2f km</string>
+    <string name="format_dollar">$%1$.2f</string>
+    <string name="format_speed">%1$d km/h</string>
+    <string name="format_percent">%1$d%%</string>
+    <string name="format_fuel_bar">%1$.1f / %2$.0f km</string>
+    <string name="format_fuel_remaining_km">%1$.1f km</string>
+    <string name="format_fuel_remaining_dollar">$%1$.2f</string>
+    <string name="format_cost_per_km">$%1$.3f/km</string>
+    <string name="format_mode_stats">%1$.1f km | %2$d viajes</string>
+</resources>

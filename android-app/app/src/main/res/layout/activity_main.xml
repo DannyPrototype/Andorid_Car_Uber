@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_primary"
+    tools:context=".ui.MainActivity">
+
+    <!-- Main split: left panel + right map -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- Left: Dashboard Fragment -->
+        <FrameLayout
+            android:id="@+id/fragmentDashboard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="55" />
+
+        <!-- Right: Map Fragment -->
+        <FrameLayout
+            android:id="@+id/fragmentMap"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="45" />
+    </LinearLayout>
+
+    <!-- Bottom button bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/bg_panel"
+        android:padding="8dp"
+        android:gravity="center">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStart"
+            style="@style/BottomBarButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:text="@string/btn_start_trip"
+            android:backgroundTint="@color/btn_start_light"
+            android:textColor="@color/btn_start_text"
+            android:drawableTop="@android:drawable/ic_media_play" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStop"
+            style="@style/BottomBarButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:text="@string/btn_end_trip"
+            android:backgroundTint="@color/btn_stop_light"
+            android:textColor="@color/btn_stop_text"
+            android:enabled="false"
+            android:drawableTop="@android:drawable/ic_media_pause" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFuel"
+            style="@style/BottomBarButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:text="@string/btn_fuel"
+            android:backgroundTint="@color/btn_fuel_light"
+            android:textColor="@color/btn_fuel_text" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnExport"
+            style="@style/BottomBarButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="4dp"
+            android:text="@string/btn_export"
+            android:backgroundTint="@color/btn_export_light"
+            android:textColor="@color/btn_export_text" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMode"
+            style="@style/BottomBarButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="@string/btn_change_mode"
+            android:backgroundTint="@color/btn_mode_light"
+            android:textColor="@color/btn_mode_text" />
+    </LinearLayout>
+</LinearLayout>
