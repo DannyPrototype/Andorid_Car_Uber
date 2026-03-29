@@ -1,0 +1,578 @@
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ===== Main Container ===== */
+.main-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* ===== Panel Izquierdo ===== */
+.panel-left {
+    width: 55%;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+}
+
+/* Barra de modo */
+.mode-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background 0.3s, color 0.3s;
+}
+
+.mode-bar.personal {
+    background: #1a2a1a;
+    color: #4caf50;
+    border: 1px solid #2e7d32;
+}
+
+.mode-bar.uber-passenger {
+    background: #2a1a2a;
+    color: #ce93d8;
+    border: 1px solid #7b1fa2;
+}
+
+.mode-bar.uber-empty {
+    background: #2a2a1a;
+    color: #ffb74d;
+    border: 1px solid #f57c00;
+}
+
+.mode-icon {
+    font-size: 1.4rem;
+}
+
+/* ===== Data Grid ===== */
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    flex: 1;
+}
+
+.data-card {
+    background: #1a1a2e;
+    border: 1px solid #2a2a4a;
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+.data-card:hover {
+    border-color: #4a4a7a;
+}
+
+.data-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+}
+
+.data-unit {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.data-label {
+    font-size: 0.7rem;
+    color: #6a6a8a;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Speed card destaca */
+.speed-card {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-color: #0f3460;
+}
+
+.speed-card .data-value {
+    font-size: 2.4rem;
+    color: #00b4d8;
+}
+
+/* Fuel card ocupa 2 columnas */
+.fuel-card {
+    grid-column: span 2;
+    align-items: stretch;
+}
+
+.fuel-bar-container {
+    width: 100%;
+    height: 18px;
+    background: #0d0d1a;
+    border-radius: 9px;
+    overflow: hidden;
+    position: relative;
+    margin: 6px 0;
+}
+
+.fuel-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00b4d8, #0077b6);
+    border-radius: 9px;
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.fuel-bar.warning {
+    background: linear-gradient(90deg, #f57c00, #e65100);
+}
+
+.fuel-bar.danger {
+    background: linear-gradient(90deg, #d32f2f, #b71c1c);
+}
+
+.fuel-bar-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.fuel-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+/* Finance card ocupa 1 columna */
+.finance-card {
+    justify-content: flex-start;
+    gap: 6px;
+}
+
+.finance-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.8rem;
+}
+
+.finance-label {
+    color: #6a6a8a;
+}
+
+.finance-value {
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.finance-value.green {
+    color: #4caf50;
+}
+
+.finance-value.red {
+    color: #ef5350;
+}
+
+/* ===== Panel Derecho: Mapa ===== */
+.panel-right {
+    width: 45%;
+    padding: 12px 12px 12px 0;
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    background: #0d1117;
+    border-radius: 12px;
+    border: 1px solid #1a2a3a;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(30,60,90,0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,60,90,0.15) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Calles principales */
+.map-road {
+    position: absolute;
+    background: #1a2a3a;
+}
+
+.map-road-h {
+    top: 45%;
+    left: 0;
+    right: 0;
+    height: 12px;
+    transform: translateY(-50%);
+}
+
+.map-road-v {
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 12px;
+    transform: translateX(-50%);
+}
+
+.map-road-diag {
+    top: 0;
+    left: 0;
+    width: 141%;
+    height: 10px;
+    transform-origin: top left;
+    transform: rotate(35deg) translateY(80px);
+}
+
+/* Calles secundarias */
+.map-street {
+    position: absolute;
+    background: #142230;
+}
+
+.street-1 {
+    top: 20%;
+    left: 0;
+    right: 0;
+    height: 6px;
+}
+
+.street-2 {
+    top: 70%;
+    left: 0;
+    right: 0;
+    height: 6px;
+}
+
+.street-3 {
+    left: 25%;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+}
+
+.street-4 {
+    left: 75%;
+    top: 0;
+    bottom: 0;
+    width: 6px;
+}
+
+/* Marcador del carro */
+.car-marker {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    transition: top 1s ease, left 1s ease;
+}
+
+.car-dot {
+    width: 14px;
+    height: 14px;
+    background: #00b4d8;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 12px rgba(0, 180, 216, 0.6);
+}
+
+.car-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0, 180, 216, 0.2);
+    transform: translate(-50%, -50%);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+.route-line {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+.map-label {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-size: 0.7rem;
+    color: #3a5a7a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.map-compass {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #2a4a6a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #ef5350;
+}
+
+/* ===== Barra Inferior ===== */
+.bottom-bar {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px;
+    background: #0f0f1a;
+    border-top: 1px solid #1a1a3a;
+}
+
+.btn {
+    flex: 1;
+    padding: 14px 8px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: transform 0.1s, opacity 0.2s, box-shadow 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.btn:disabled:active {
+    transform: none;
+}
+
+.btn-icon {
+    font-size: 1.3rem;
+}
+
+.btn-start {
+    background: linear-gradient(135deg, #1b5e20, #2e7d32);
+    color: #a5d6a7;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+}
+
+.btn-start:hover:not(:disabled) {
+    box-shadow: 0 4px 16px rgba(46, 125, 50, 0.5);
+}
+
+.btn-stop {
+    background: linear-gradient(135deg, #b71c1c, #d32f2f);
+    color: #ef9a9a;
+    box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+}
+
+.btn-stop:hover:not(:disabled) {
+    box-shadow: 0 4px 16px rgba(211, 47, 47, 0.5);
+}
+
+.btn-fuel {
+    background: linear-gradient(135deg, #e65100, #f57c00);
+    color: #ffe0b2;
+    box-shadow: 0 2px 8px rgba(245, 124, 0, 0.3);
+}
+
+.btn-fuel:hover:not(:disabled) {
+    box-shadow: 0 4px 16px rgba(245, 124, 0, 0.5);
+}
+
+.btn-export {
+    background: linear-gradient(135deg, #0d47a1, #1565c0);
+    color: #90caf9;
+    box-shadow: 0 2px 8px rgba(21, 101, 192, 0.3);
+}
+
+.btn-export:hover:not(:disabled) {
+    box-shadow: 0 4px 16px rgba(21, 101, 192, 0.5);
+}
+
+.btn-mode {
+    background: linear-gradient(135deg, #4a148c, #6a1b9a);
+    color: #ce93d8;
+    box-shadow: 0 2px 8px rgba(106, 27, 154, 0.3);
+}
+
+.btn-mode:hover:not(:disabled) {
+    box-shadow: 0 4px 16px rgba(106, 27, 154, 0.5);
+}
+
+/* ===== Modal ===== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: #1a1a2e;
+    border: 1px solid #2a2a5a;
+    border-radius: 16px;
+    padding: 24px 28px;
+    min-width: 340px;
+    max-width: 90vw;
+    text-align: center;
+}
+
+.modal h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.modal p {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 16px;
+}
+
+.modal-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #2a2a5a;
+    border-radius: 8px;
+    background: #0d0d1a;
+    color: #fff;
+    font-size: 1.2rem;
+    text-align: center;
+    outline: none;
+    margin-bottom: 16px;
+}
+
+.modal-input:focus {
+    border-color: #00b4d8;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-modal-cancel {
+    background: #2a2a3a;
+    color: #aaa;
+}
+
+.btn-modal-cancel:hover {
+    background: #3a3a4a;
+}
+
+.btn-modal-ok {
+    background: linear-gradient(135deg, #00b4d8, #0077b6);
+    color: #fff;
+}
+
+.btn-modal-ok:hover {
+    box-shadow: 0 4px 16px rgba(0, 180, 216, 0.4);
+}
+
+/* ===== Toast ===== */
+.toast {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1a1a2e;
+    border: 1px solid #00b4d8;
+    color: #00b4d8;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 200;
+    pointer-events: none;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ===== Scrollbar ===== */
+.panel-left::-webkit-scrollbar {
+    width: 4px;
+}
+
+.panel-left::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.panel-left::-webkit-scrollbar-thumb {
+    background: #2a2a4a;
+    border-radius: 2px;
+}

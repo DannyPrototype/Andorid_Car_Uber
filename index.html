@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Radio - Uber Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Panel principal dividido en 2 -->
+        <div class="main-container">
+            <!-- Panel izquierdo: datos -->
+            <div class="panel-left">
+                <div class="mode-bar" id="modeBar">
+                    <span class="mode-icon" id="modeIcon">&#128664;</span>
+                    <span class="mode-label" id="modeLabel">Personal</span>
+                </div>
+
+                <div class="data-grid">
+                    <!-- Velocidad -->
+                    <div class="data-card speed-card">
+                        <span class="data-value" id="speed">0</span>
+                        <span class="data-unit">km/h</span>
+                        <span class="data-label">Velocidad</span>
+                    </div>
+
+                    <!-- Distancia viaje -->
+                    <div class="data-card">
+                        <span class="data-value" id="tripDistance">0.00</span>
+                        <span class="data-unit">km</span>
+                        <span class="data-label">Distancia Viaje</span>
+                    </div>
+
+                    <!-- Km del dia -->
+                    <div class="data-card">
+                        <span class="data-value" id="dayKm">0.00</span>
+                        <span class="data-unit">km</span>
+                        <span class="data-label">Km del D&iacute;a</span>
+                    </div>
+
+                    <!-- Tiempo viaje -->
+                    <div class="data-card">
+                        <span class="data-value" id="tripTime">00:00</span>
+                        <span class="data-unit">min</span>
+                        <span class="data-label">Tiempo Viaje</span>
+                    </div>
+
+                    <!-- Tiempo detenido -->
+                    <div class="data-card">
+                        <span class="data-value" id="stoppedTime">00:00</span>
+                        <span class="data-unit">min</span>
+                        <span class="data-label">T. Detenido</span>
+                    </div>
+
+                    <!-- Bloque combustible -->
+                    <div class="data-card fuel-card">
+                        <span class="data-label">Combustible (bloque 100 km)</span>
+                        <div class="fuel-bar-container">
+                            <div class="fuel-bar" id="fuelBar"></div>
+                            <span class="fuel-bar-text" id="fuelBarText">0 / 100 km</span>
+                        </div>
+                        <div class="fuel-details">
+                            <span>Actual: <strong id="fuelCurrent">0.00</strong> km</span>
+                            <span>Exceso: <strong id="fuelExcess">0</strong> m</span>
+                        </div>
+                    </div>
+
+                    <!-- Finanzas -->
+                    <div class="data-card finance-card">
+                        <div class="finance-row">
+                            <span class="finance-label">Ingreso Uber</span>
+                            <span class="finance-value green" id="uberIncome">$0.00</span>
+                        </div>
+                        <div class="finance-row">
+                            <span class="finance-label">Costo Estimado</span>
+                            <span class="finance-value red" id="estimatedCost">$0.00</span>
+                        </div>
+                        <div class="finance-row">
+                            <span class="finance-label">Ganancia</span>
+                            <span class="finance-value" id="profit">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel derecho: mapa simulado -->
+            <div class="panel-right">
+                <div class="map-container" id="mapContainer">
+                    <div class="map-grid"></div>
+                    <div class="map-road map-road-h"></div>
+                    <div class="map-road map-road-v"></div>
+                    <div class="map-road map-road-diag"></div>
+                    <!-- Calles secundarias -->
+                    <div class="map-street street-1"></div>
+                    <div class="map-street street-2"></div>
+                    <div class="map-street street-3"></div>
+                    <div class="map-street street-4"></div>
+                    <!-- Marcador del carro -->
+                    <div class="car-marker" id="carMarker">
+                        <div class="car-dot"></div>
+                        <div class="car-pulse"></div>
+                    </div>
+                    <!-- Ruta simulada -->
+                    <svg class="route-line" id="routeLine" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <polyline id="routePath" fill="none" stroke="#00b4d8" stroke-width="0.5" points=""/>
+                    </svg>
+                    <div class="map-label">Mapa Simulado</div>
+                    <div class="map-compass">N</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Barra inferior de botones -->
+        <div class="bottom-bar">
+            <button class="btn btn-start" id="btnStart" onclick="startTrip()">
+                <span class="btn-icon">&#9654;</span>
+                Iniciar Viaje
+            </button>
+            <button class="btn btn-stop" id="btnStop" onclick="endTrip()" disabled>
+                <span class="btn-icon">&#9632;</span>
+                Finalizar Viaje
+            </button>
+            <button class="btn btn-fuel" onclick="registerFuel()">
+                <span class="btn-icon">&#9981;</span>
+                Combustible
+            </button>
+            <button class="btn btn-export" onclick="exportCSV()">
+                <span class="btn-icon">&#128190;</span>
+                Exportar CSV
+            </button>
+            <button class="btn btn-mode" onclick="changeMode()">
+                <span class="btn-icon">&#128260;</span>
+                Cambiar Modo
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal generico -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h3 id="modalTitle">Titulo</h3>
+            <p id="modalMessage">Mensaje</p>
+            <input type="number" id="modalInput" class="modal-input" placeholder="0.00" step="0.01" min="0">
+            <div class="modal-buttons">
+                <button class="btn btn-modal-cancel" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-modal-ok" id="modalOk" onclick="confirmModal()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
